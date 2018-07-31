@@ -6,22 +6,33 @@ const passport      = require('passport');
 
 // POST ROUTE FOR CREATING A NEW USER
 router.post('/signup', (req, res, next) => {
-    const username = req.body.username;
-    const password = req.body.password;
-    if (!username || !password) {
-        res.status(400).json({ message: 'Provide username and password' });
+    const email         = req.body.email;
+    const password      = req.body.password;
+    const firstName     = req.body.firstName;
+    const lastName      = req.body.lastName;
+    const zipCode       = req.body.zipCode;
+    const phoneNumber   = req.body.phoneNumber;
+    const orgAdmin      = req.body.orgAdmin;
+
+    if (!email || !password) {
+        res.status(400).json({ message: 'Provide email and password' });
         return;
     }
-    User.findOne({ username }, '_id', (err, foundUser) => {
+    User.findOne({ email }, '_id', (err, foundUser) => {
         if (foundUser) {
-            res.status(400).json({ message: 'The username already exists' });
+            res.status(400).json({ message: 'The email already exists' });
             return;
         }
         const salt     = bcrypt.genSaltSync(10);
         const hashPass = bcrypt.hashSync(password, salt);
         const theUser = new User({
-            username,
-            password: hashPass
+            email,
+            password: hashPass,
+            firstName: firstName,
+            lastName: lastName,
+            zipCode: zipCode,
+            phoneNumber: phoneNumber,
+            orgAdmin: orgAdmin
         });
         theUser.save((err) => {
             if (err) {

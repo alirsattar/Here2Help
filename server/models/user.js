@@ -8,10 +8,10 @@ const userSchema = new Schema({
     email:                String,
     skills:               [String],
     preferredEventType:   [String],
-    profilePicture:       String,
+    profilePicture:       {type: String, default: 'https://vignette.wikia.nocookie.net/shingekinokyojin/images/c/c0/Anonymous_User.jpg/revision/latest?cb=20160312154300'},
     phoneNumber:          Number,
-    orgAdmin:             [{type: Schema.Types.ObjectId, ref: 'Organization'}],
-    events:               [{type: Schema.Types.ObjectId, ref: 'Event'}]
+    orgAdmin:             [{type: Schema.Types.ObjectId, ref: 'Organization', default: []}],
+    events:               [{type: Schema.Types.ObjectId, ref: 'Event', default: []}]
 },
 {  
     usePushEach: true
