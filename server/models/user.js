@@ -2,13 +2,23 @@ const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 
 const userSchema = new Schema({
-  username: String,
-  password: String
-}, {
-  timestamps: true
+    firstName:            String,
+    lastName:             String,
+    zipCode:              Number,
+    email:                String,
+    skills:               [String],
+    preferredEventType:   [String],
+    profilePicture:       String,
+    phoneNumber:          Number,
+    orgAdmin:             [{type: Schema.Types.ObjectId, ref: 'Organization'}],
+    events:               [{type: Schema.Types.ObjectId, ref: 'Event'}]
+},
+{  
+    usePushEach: true
+},{
+    timestamps: true
 });
 
 const User = mongoose.model('User', userSchema);
-module.exports = User;
 
-// ADDING A COMMENT TO TEST UPDATING FROM ORG MASTER
+module.exports = User;
