@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 
 const organizationSchema = new Schema({
-  name: String,
+  name: {type: String, required: true, unique: true},
+  address: {type: String, required: true},
+  email: {type: String, required: true, unique: true},
+  phoneNumber: {type: Number, required: true, unique: true},
   description: String,
   logo: String,
-  address: String,
-  phoneNumber: Number,
-  email: String,
   reviews: [{
     author: {type: Schema.Types.ObjectId, ref: 'User'},
     content: String
