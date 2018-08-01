@@ -2,13 +2,23 @@ const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 
 const userSchema = new Schema({
-  username: String,
-  password: String
-}, {
-  timestamps: true
+    firstName:            String,
+    lastName:             String,
+    zipCode:              Number,
+    email:                String,
+    skills:               [String],
+    preferredEventType:   [String],
+    profilePicture:       {type: String, default: 'https://vignette.wikia.nocookie.net/shingekinokyojin/images/c/c0/Anonymous_User.jpg/revision/latest?cb=20160312154300'},
+    phoneNumber:          Number,
+    orgAdmin:             [{type: Schema.Types.ObjectId, ref: 'Organization', default: []}],
+    events:               [{type: Schema.Types.ObjectId, ref: 'Event', default: []}]
+},
+{  
+    usePushEach: true
+},{
+    timestamps: true
 });
 
 const User = mongoose.model('User', userSchema);
-module.exports = User;
 
-// ADDING A COMMENT TO TEST UPDATING FROM ORG MASTER
+module.exports = User;
