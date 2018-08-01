@@ -8,10 +8,7 @@ const organizationSchema = new Schema({
   phoneNumber: {type: Number, required: true, unique: true},
   description: String,
   logo: String,
-  reviews: [{
-    author: {type: Schema.Types.ObjectId, ref: 'User'},
-    content: String
-  }],
+  reviews: [{type: Schema.Types.ObjectId, ref: 'Review'}],
   staff: [{
     user: {type: Schema.Types.ObjectId, ref: 'User'},
     role: {type: String, enum: ['ADMIN', 'VOLUNTEER']}

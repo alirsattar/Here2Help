@@ -35,6 +35,7 @@ router.get('/orgs/', (req, res, next) => {
 
 // POST ROUTE FOR UPDATING ONE ORGANIZATION
 router.post('/orgs/:id/edit', (req, res, next) => {
+  
   if(!req.body.name || req.body.name === '') {res.status(400).json({message: 'Organization name is required'}); return}
   if(!req.body.address || req.body.address === '') {res.status(400).json({message: 'Organization address is required'}); return}
   if(!req.body.email || req.body.email === '') {res.status(400).json({message: 'Organization email is required'}); return}
