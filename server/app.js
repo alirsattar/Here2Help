@@ -81,5 +81,7 @@ app.use('/', index);
 const userRoutes = require('./routes/userRoutes');
 app.use('/api', userRoutes);
 
+const organizationRoutes = require('./routes/organization');
+app.use('/api', organizationRoutes);
 
 module.exports = app;
