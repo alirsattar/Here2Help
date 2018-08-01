@@ -84,4 +84,7 @@ app.use('/api', userRoutes);
 const organizationRoutes = require('./routes/organization');
 app.use('/api', organizationRoutes);
 
+const eventRoutes = require('./routes/event');
+app.use('/api', eventRoutes)
+
 module.exports = app;
