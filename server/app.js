@@ -79,15 +79,19 @@ const index = require('./routes/index');
 app.use('/', index);
 
 // USER AUTHENTICATION + CRUD ROUTES
-const userRoutes = require('./routes/userRoutes');
-app.use('/api/user', userRoutes);
+const usersRoutes = require('./routes/usersRoutes');
+app.use('/api/users', usersRoutes);
 
 // ORGANIZATION CRUD ROUTES
-const organizationRoutes = require('./routes/organization');
-app.use('/api', organizationRoutes);
+const organizationsRoutes = require('./routes/organizationsRoutes');
+app.use('/api/orgs', organizationsRoutes);
+
+//EVENT CRUD ROUTES
+const eventsRoutes = require('./routes/eventsRoutes');
+app.use('/api/events', eventsRoutes)
 
 // REVIEW CRUD ROUTES
-const reviewRoutes = require('./routes/reviewRoutes');
-app.use('/api/review', reviewRoutes);
+const reviewsRoutes = require('./routes/reviewsRoutes');
+app.use('/api/reviews', reviewsRoutes);
 
 module.exports = app;
