@@ -3,7 +3,7 @@ const router  = express.Router();
 const Organization = require('../models/organization');
 
 // POST ROUTE FOR CREATING A NEW ORGANIZATION
-router.post('/orgs/create', (req, res, next) => {
+router.post('/create', (req, res, next) => {
   let newOrg = new Organization ({
     name: req.body.name,
     email: req.body.email,
@@ -22,7 +22,7 @@ router.post('/orgs/create', (req, res, next) => {
 });
 
 // GET ROUTE FOR GETTING ALL ORGANIZATIONS
-router.get('/orgs/', (req, res, next) => {
+router.get('/', (req, res, next) => {
   Organization.find((err, orgs) => {
     if(err) {res.status(400).json(err)}
     else if(!orgs) {res.status(400).json({message: 'Could not find any organizations'})}
@@ -31,7 +31,7 @@ router.get('/orgs/', (req, res, next) => {
 });
 
 // POST ROUTE FOR UPDATING ONE ORGANIZATION
-router.post('/orgs/:id/edit', (req, res, next) => {
+router.post('/:id/edit', (req, res, next) => {
   if(!req.body.name || req.body.name === '') {res.status(400).json({message: 'Organization name is required'}); return}
   if(!req.body.address || req.body.address === '') {res.status(400).json({message: 'Organization address is required'}); return}
   if(!req.body.email || req.body.email === '') {res.status(400).json({message: 'Organization email is required'}); return}
@@ -45,7 +45,7 @@ router.post('/orgs/:id/edit', (req, res, next) => {
 })
 
 // POST ROUTE FOR DELETING ONE ORGANIZATION
-router.post('/orgs/:id/delete', (req, res, next) => {
+router.post('/:id/delete', (req, res, next) => {
   Organization.findByIdAndRemove(req.params.id, (err, org) => {
     if(err) {res.status(400).json(err)}
     else if(!org) {res.status(400).json({message: 'Organization does not exist'})}
@@ -54,7 +54,7 @@ router.post('/orgs/:id/delete', (req, res, next) => {
 })
   
 // GET ROUTE FOR GETTING ONE ORGANIZATION
-router.get('/orgs/:id', (req, res, next) => {
+router.get('/:id', (req, res, next) => {
   Organization.findById(req.params.id, (err, org) => {
     if(err) {res.status(400).json(err)}
     else if (!org) {res.status(400).json({message: 'Organization does not exist'})}

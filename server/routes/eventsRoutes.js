@@ -3,7 +3,7 @@ const router  = express.Router();
 const Event = require('../models/event');
 
 // POST ROUTE FOR CREATING A NEW EVENT
-router.post('/events/create', (req, res, next) => {
+router.post('/create', (req, res, next) => {
   let newEvent = new Event({
     participants: [],
     name: req.body.name,
@@ -31,7 +31,7 @@ router.post('/events/create', (req, res, next) => {
 });
 
 // GET ROUTE FOR GETTING ALL EVENTS
-router.get('/events/', (req, res, next) => {
+router.get('/', (req, res, next) => {
   Event.find((err, events) => {
     if(err) {res.status(400).json(err)}
     else {res.status(200).json(events)};
