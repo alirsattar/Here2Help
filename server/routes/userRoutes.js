@@ -4,6 +4,11 @@ const User          = require('../models/user');
 const bcrypt        = require('bcryptjs');
 const passport      = require('passport');
 
+
+// POST ROUTE FOR CHANGING USER'S INFO
+
+
+
 // POST ROUTE FOR CREATING A NEW USER
 router.post('/signup', (req, res, next) => {
     const email         = req.body.email;
@@ -85,6 +90,16 @@ router.get('/loggedin', (req, res, next) => {
         return;
     }
     res.status(403).json({ message: 'Unauthorized' });
+});
+
+// GET ROUTE FOR PULLING SINGLE USER'S INFO
+router.get('/:userID', (req, res, next) => {
+    const userID = req.params.userID;
+    User.findById(userID, (err, theUser) => {
+        if(err) {res.status(400).json(err)}
+        else if (!theUser) {res.status(400).json({message: 'Review does not exist'})}
+        else {res.status(200).json(theUser)}
+    });
 });
 
 module.exports = router;
