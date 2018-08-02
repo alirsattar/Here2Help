@@ -6,6 +6,7 @@ const userSchema = new Schema({
     lastName:             String,
     zipCode:              Number,
     email:                String,
+    password:             String,
     skills:               [String],
     preferredEventType:   [String],
     profilePicture:       {type: String, default: 'https://vignette.wikia.nocookie.net/shingekinokyojin/images/c/c0/Anonymous_User.jpg/revision/latest?cb=20160312154300'},

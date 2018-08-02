@@ -6,8 +6,16 @@ const passport      = require('passport');
 
 
 // POST ROUTE FOR CHANGING USER'S INFO
+router.post('/edit/:userID', (req, res, next) => {
+    const userID = req.params.userID;
+    User.findByIdAndUpdate(userID, req.body, {new: true}, (err, theUser) => {
+        if(err) {res.status(400).json(err)}
+        else if(!theUser) {res.status(400).json({message: 'User not found'})}
+        else {res.status(200).json(theUser)}
+    });
+});
 
-
+// ----------------------------------------------------------------------------------
 
 // POST ROUTE FOR CREATING A NEW USER
 router.post('/signup', (req, res, next) => {
@@ -32,12 +40,12 @@ router.post('/signup', (req, res, next) => {
         const hashPass = bcrypt.hashSync(password, salt);
         const theUser = new User({
             email,
-            password: hashPass,
-            firstName: firstName,
-            lastName: lastName,
-            zipCode: zipCode,
-            phoneNumber: phoneNumber,
-            orgAdmin: orgAdmin
+            password:       hashPass,
+            firstName:      firstName,
+            lastName:       lastName,
+            zipCode:        zipCode,
+            phoneNumber:    phoneNumber,
+            orgAdmin:       orgAdmin
         });
         theUser.save((err) => {
             if (err) {
@@ -54,6 +62,8 @@ router.post('/signup', (req, res, next) => {
         });
     });
 });
+
+// ----------------------------------------------------------------------------------
 
 // LOGIN POST ROUTE
 router.post('/login', (req, res, next) => {
@@ -77,11 +87,15 @@ router.post('/login', (req, res, next) => {
     })(req, res, next);
 });
 
+// ----------------------------------------------------------------------------------
+
 // POST ROUTE FOR LOGOUT
 router.post('/logout', (req, res, next) => {
     req.logout();
     res.status(200).json({ message: 'Success' });
 });
+
+// ----------------------------------------------------------------------------------
 
 // GET ROUTE FOR CHECKING IF USER IS LOGGED IN
 router.get('/loggedin', (req, res, next) => {
@@ -92,12 +106,26 @@ router.get('/loggedin', (req, res, next) => {
     res.status(403).json({ message: 'Unauthorized' });
 });
 
+// ----------------------------------------------------------------------------------
+
+// POST ROUTE FOR DELETING A USER'S ACCOUNT
+router.post('/delete/:userID', (req, res, next) => {
+    const userID = req.params.userID;
+    User.findByIdAndRemove(userID, (err, theUser) => {
+        if(err) {res.status(400).json(err)}
+        else if(!theUser) {res.status(400).json({message: 'User does not exist'})}
+        else {res.status(200).json({message: 'Success'})}
+    });
+});
+
+// ----------------------------------------------------------------------------------
+
 // GET ROUTE FOR PULLING SINGLE USER'S INFO
 router.get('/:userID', (req, res, next) => {
     const userID = req.params.userID;
     User.findById(userID, (err, theUser) => {
         if(err) {res.status(400).json(err)}
-        else if (!theUser) {res.status(400).json({message: 'Review does not exist'})}
+        else if (!theUser) {res.status(400).json({message: 'User does not exist'})}
         else {res.status(200).json(theUser)}
     });
 });
