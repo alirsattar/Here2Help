@@ -32,10 +32,10 @@ router.get('/', (req, res, next) => {
 
 // POST ROUTE FOR UPDATING ONE ORGANIZATION
 router.post('/:id/edit', (req, res, next) => {
-  if(!req.body.name || req.body.name === '') {res.status(400).json({message: 'Organization name is required'}); return}
-  if(!req.body.address || req.body.address === '') {res.status(400).json({message: 'Organization address is required'}); return}
-  if(!req.body.email || req.body.email === '') {res.status(400).json({message: 'Organization email is required'}); return}
-  if(!req.body.phoneNumber || req.body.phoneNumber === '') {res.status(400).json({message: 'Organization phone number is required'}); return}
+  if(!req.body.name        || req.body.name        === '') {res.status(400).json({message: 'Organization name is required'         }); return}
+  if(!req.body.address     || req.body.address     === '') {res.status(400).json({message: 'Organization address is required'      }); return}
+  if(!req.body.email       || req.body.email       === '') {res.status(400).json({message: 'Organization email is required'        }); return}
+  if(!req.body.phoneNumber || req.body.phoneNumber === '') {res.status(400).json({message: 'Organization phone number is required' }); return}
 
   Organization.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, org) => {
     if(err) {res.status(400).json(err)}
@@ -47,9 +47,9 @@ router.post('/:id/edit', (req, res, next) => {
 // POST ROUTE FOR DELETING ONE ORGANIZATION
 router.post('/:id/delete', (req, res, next) => {
   Organization.findByIdAndRemove(req.params.id, (err, org) => {
-    if(err) {res.status(400).json(err)}
+    if(err)       {res.status(400).json(err)}
     else if(!org) {res.status(400).json({message: 'Organization does not exist'})}
-    else {res.status(200).json({message: 'Success'})}
+    else          {res.status(200).json({message: 'Success'})}
   })
 })
   
