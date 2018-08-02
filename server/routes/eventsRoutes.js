@@ -15,14 +15,14 @@ router.post('/create', (req, res, next) => {
     pictures: [],
     reviews: []
   });
-  
-  if(!newEvent.name      || newEvent.name      === '') {res.status(400).json({message: 'The event name is required'      }); return}
-  if(!newEvent.type      || newEvent.type      === '') {res.status(400).json({message: 'The event type is required'      }); return}
-  if(!newEvent.location  || newEvent.location  === '') {res.status(400).json({message: 'The event location is required'  }); return}
-  if(!newEvent.startTime || newEvent.startTime === '') {res.status(400).json({message: 'The event start time is required'}); return}
-  if(!newEvent.endTime   || newEvent.endTime   === '') {res.status(400).json({message: 'The event end time is required'  }); return}
-  if(!newEvent.status    || newEvent.status    === '') {res.status(400).json({message: 'The event status is required'    }); return}
-
+  // Validate fields
+  if(!newEvent.name      || newEvent.name      === '') {res.status(400).json({message: 'The event name is required'       }); return}
+  if(!newEvent.type      || newEvent.type      === '') {res.status(400).json({message: 'The event type is required'       }); return}
+  if(!newEvent.location  || newEvent.location  === '') {res.status(400).json({message: 'The event location is required'   }); return}
+  if(!newEvent.startTime || newEvent.startTime === '') {res.status(400).json({message: 'The event start time is required' }); return}
+  if(!newEvent.endTime   || newEvent.endTime   === '') {res.status(400).json({message: 'The event end time is required'   }); return}
+  if(!newEvent.status    || newEvent.status    === '') {res.status(400).json({message: 'The event status is required'     }); return}
+  // Save new event to DB
   newEvent.save((err, event) => {
     if(err) {res.status(400).json(err)}
     else if(!event) {res.status(400).json({message: 'Unable to create event'})}
@@ -38,14 +38,59 @@ router.get('/', (req, res, next) => {
   })
 });
 
-
 // POST ROUTE FOR UPDATING ONE EVENT
+router.post('/:id/update', (req, res, next) => {
+  // Create new object to add updates
+  let updatedEvent = {};
+  // Validate fields that will be updated
+  if(req.body.participants !== undefined) {updatedEvent.participants = req.body.participants }
+  if(req.body.name         !== undefined) {updatedEvent.name         = req.body.name         }
+  if(req.body.type         !== undefined) {updatedEvent.type         = req.body.type         }
+  if(req.body.location     !== undefined) {updatedEvent.location     = req.body.location     }
+  if(req.body.startTime    !== undefined) {updatedEvent.startTime    = req.body.startTime    }
+  if(req.body.endTime      !== undefined) {updatedEvent.endTime      = req.body.endTime      }
+  if(req.body.status       !== undefined) {updatedEvent.status       = req.body.status       }
+  if(req.body.pictures     !== undefined) {updatedEvent.participants = req.body.participants }
+  if(req.body.reviews      !== undefined) {updatedEvent.reviews      = req.body.reviews      }
+  // Save updated event
+  Event.findByIdAndUpdate({_id: req.params.id}, updatedEvent, {new: true}, (err, event) => {
+    if(err) {res.status(400).json(err)}
+    else    {res.status(200).json(event)}
+  }); 
+});
 
+// POST ROUTE FOR ADDING PARTICIPANTS
+router.post('/:id/addParticipants', (req, res, next) => {
+  Event.findByIdAndUpdate(req.params.id, {$push: {participants: {$each: req.body.participants}}}, {new:true}, (err, conf) => {
+    if(err) {res.status(400).json(err)}
+    else    {res.status(200).json(conf)}
+  })
+});
+
+// // POST ROUTE FOR ADDING REVIEWS
+// router.post('/:id/addReview', (req, res, next) => {
+//   Event.findByIdAndUpdate(req.params.id, {$push: {reviews: req.body.review}}, {new:true}, (err, conf) => {
+//     if(err) {res.status(400).json(err)}
+//     else    {res.status(200).json(conf)}
+//   })
+// });
 
 // POST ROUTE FOR DELETING ONE EVENT
-
+router.post('/:id/delete', (req, res, next) => {
+  // Save updated event
+  Event.findByIdAndUpdate({_id: req.params.id}, {status: 'cancelled'}, {new: true}, (err, event) => {
+    if(err) {res.status(400).json(err)}
+    else    {res.status(200).json(event)}
+  }); 
+});
   
 // GET ROUTE FOR GETTING ONE EVENT
+router.get('/:id', (req, res, next) => {
+  Event.findById(req.params.id, (err, events) => {
+    if(err) {res.status(400).json(err)}
+    else {res.status(200).json(events)};
+  })
+});
 
 
 module.exports = router;
