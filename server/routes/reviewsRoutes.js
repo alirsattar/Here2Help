@@ -11,11 +11,9 @@ router.post('/create', (req, res, next) => {
     orgID:      req.body.orgID
   });
   newReview.save(error => {
-    if(error) {
-      res.status(400).json(error);
-    } else {
-      res.status(200).json(newReview);
-    }
+    if(error)                  {res.status(400).json(error);} 
+    else if(newReview.eventID) {res.redirect(307, `/api/events/${newReview.eventID}/addReview/${newReview._id}`)}
+    else                       {res.redirect(307, `/api/orgs/${newReview.orgID}/addReview/${newReview._id}`)}
   });
 });
 
