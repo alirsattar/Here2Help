@@ -21,6 +21,8 @@ router.post('/create', (req, res, next) => {
   });
 });
 
+// ---------------------------------------------------------------------------------------------------------
+
 // GET ROUTE FOR GETTING ALL ORGANIZATIONS
 router.get('/', (req, res, next) => {
   Organization.find((err, orgs) => {
@@ -29,6 +31,8 @@ router.get('/', (req, res, next) => {
     else {res.status(200).json(orgs)}
   })
 });
+
+// ---------------------------------------------------------------------------------------------------------
 
 // POST ROUTE FOR UPDATING ONE ORGANIZATION
 router.post('/:id/edit', (req, res, next) => {
@@ -42,7 +46,9 @@ router.post('/:id/edit', (req, res, next) => {
     else if(!org) {res.status(400).json({message: 'Organization does not exist'})}
     else {res.status(200).json(org)}
   });
-})
+});
+
+// ---------------------------------------------------------------------------------------------------------
 
 // POST ROUTE FOR DELETING ONE ORGANIZATION
 router.post('/:id/delete', (req, res, next) => {
@@ -51,7 +57,9 @@ router.post('/:id/delete', (req, res, next) => {
     else if(!org) {res.status(400).json({message: 'Organization does not exist'})}
     else          {res.status(200).json({message: 'Success'})}
   })
-})
+});
+
+// ---------------------------------------------------------------------------------------------------------
   
 // GET ROUTE FOR GETTING ONE ORGANIZATION
 router.get('/:id', (req, res, next) => {

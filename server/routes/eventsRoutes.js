@@ -15,6 +15,9 @@ router.post('/create', (req, res, next) => {
     pictures: [],
     reviews: []
   });
+
+// ---------------------------------------------------------------------------------------------------------
+
   // Validate fields
   if(!newEvent.name      || newEvent.name      === '') {res.status(400).json({message: 'The event name is required'       }); return}
   if(!newEvent.type      || newEvent.type      === '') {res.status(400).json({message: 'The event type is required'       }); return}
@@ -30,6 +33,8 @@ router.post('/create', (req, res, next) => {
   });
 });
 
+// ---------------------------------------------------------------------------------------------------------
+
 // GET ROUTE FOR GETTING ALL EVENTS
 router.get('/', (req, res, next) => {
   Event.find((err, events) => {
@@ -37,6 +42,8 @@ router.get('/', (req, res, next) => {
     else {res.status(200).json(events)};
   })
 });
+
+// ---------------------------------------------------------------------------------------------------------
 
 // POST ROUTE FOR UPDATING ONE EVENT
 router.post('/:id/update', (req, res, next) => {
@@ -59,6 +66,8 @@ router.post('/:id/update', (req, res, next) => {
   }); 
 });
 
+// ---------------------------------------------------------------------------------------------------------
+
 // POST ROUTE FOR ADDING PARTICIPANTS
 router.post('/:id/addParticipants', (req, res, next) => {
   Event.findByIdAndUpdate(req.params.id, {$push: {participants: {$each: req.body.participants}}}, {new:true}, (err, conf) => {
@@ -66,6 +75,8 @@ router.post('/:id/addParticipants', (req, res, next) => {
     else    {res.status(200).json(conf)}
   })
 });
+
+// ---------------------------------------------------------------------------------------------------------
 
 // // POST ROUTE FOR ADDING REVIEWS
 // router.post('/:id/addReview', (req, res, next) => {
@@ -75,6 +86,8 @@ router.post('/:id/addParticipants', (req, res, next) => {
 //   })
 // });
 
+// ---------------------------------------------------------------------------------------------------------
+
 // POST ROUTE FOR DELETING ONE EVENT
 router.post('/:id/delete', (req, res, next) => {
   // Save updated event
@@ -83,6 +96,8 @@ router.post('/:id/delete', (req, res, next) => {
     else    {res.status(200).json(event)}
   }); 
 });
+
+// ---------------------------------------------------------------------------------------------------------
   
 // GET ROUTE FOR GETTING ONE EVENT
 router.get('/:id', (req, res, next) => {

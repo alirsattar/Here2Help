@@ -19,6 +19,8 @@ router.post('/create', (req, res, next) => {
   });
 });
 
+// ---------------------------------------------------------------------------------------------------------
+
 // POST ROUTE FOR UPDATING ONE REVIEW
 router.post('/edit/:reviewID', (req, res, next) => {
     const reviewID = req.params.reviewID;
@@ -30,6 +32,8 @@ router.post('/edit/:reviewID', (req, res, next) => {
     });
 });
 
+// ---------------------------------------------------------------------------------------------------------
+
 // POST ROUTE FOR DELETING ONE REVIEW
 router.post('/delete/:reviewID', (req, res, next) => {
     const reviewID = req.params.reviewID;
@@ -39,6 +43,8 @@ router.post('/delete/:reviewID', (req, res, next) => {
         else {res.status(200).json({message: 'Success'})}
     });
 });
+
+// ---------------------------------------------------------------------------------------------------------
   
 // GET ROUTE FOR GETTING ONE REVIEW
 router.get('/:reviewID', (req, res, next) => {

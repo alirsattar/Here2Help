@@ -78,17 +78,25 @@ app.use(cors({
 const index = require('./routes/index');
 app.use('/', index);
 
+// ---------------------------------------------------------------------------------------------------------
+
 // USER AUTHENTICATION + CRUD ROUTES
 const usersRoutes = require('./routes/usersRoutes');
 app.use('/api/users', usersRoutes);
+
+// ---------------------------------------------------------------------------------------------------------
 
 // ORGANIZATION CRUD ROUTES
 const organizationsRoutes = require('./routes/organizationsRoutes');
 app.use('/api/orgs', organizationsRoutes);
 
+// ---------------------------------------------------------------------------------------------------------
+
 //EVENT CRUD ROUTES
 const eventsRoutes = require('./routes/eventsRoutes');
-app.use('/api/events', eventsRoutes)
+app.use('/api/events', eventsRoutes);
+
+// ---------------------------------------------------------------------------------------------------------
 
 // REVIEW CRUD ROUTES
 const reviewsRoutes = require('./routes/reviewsRoutes');
