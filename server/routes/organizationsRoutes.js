@@ -42,7 +42,15 @@ router.post('/:id/edit', (req, res, next) => {
     else if(!org) {res.status(400).json({message: 'Organization does not exist'})}
     else {res.status(200).json(org)}
   });
-})
+});
+
+// POST ROUTE FOR ADDING REVIEWS
+router.post('/:id/addReview/:reviewId', (req, res, next) => {
+  Organization.findByIdAndUpdate(req.params.id, {$push: {reviews: req.params.reviewId}}, {new:true}, (err, conf) => {
+    if(err) {res.status(400).json(err)}
+    else    {res.status(200).json(conf)}
+  })
+});
 
 // POST ROUTE FOR DELETING ONE ORGANIZATION
 router.post('/:id/delete', (req, res, next) => {
