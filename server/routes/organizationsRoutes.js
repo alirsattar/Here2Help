@@ -2,6 +2,9 @@ const express = require('express');
 const router  = express.Router();
 const Organization = require('../models/organization');
 
+
+//need to ensure front end has email type validation
+
 // POST ROUTE FOR CREATING A NEW ORGANIZATION
 router.post('/create', (req, res, next) => {
   let newOrg = new Organization ({

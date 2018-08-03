@@ -17,6 +17,9 @@ router.post('/edit/:userID', (req, res, next) => {
 
 // ----------------------------------------------------------------------------------
 
+// add orgId to orgs array on user model if provided
+// also add user to org's users-list if needed
+
 // POST ROUTE FOR CREATING A NEW USER
 router.post('/signup', (req, res, next) => {
     const email         = req.body.email;

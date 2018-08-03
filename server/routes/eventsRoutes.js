@@ -2,6 +2,8 @@ const express = require('express');
 const router  = express.Router();
 const Event = require('../models/event');
 
+///Push to org and user upon creation
+
 // POST ROUTE FOR CREATING A NEW EVENT
 router.post('/create', (req, res, next) => {
   let newEvent = new Event({
@@ -50,15 +52,13 @@ router.post('/:id/update', (req, res, next) => {
   // Create new object to add updates
   let updatedEvent = {};
   // Validate fields that will be updated
-  if(req.body.participants !== undefined) {updatedEvent.participants = req.body.participants }
   if(req.body.name         !== undefined) {updatedEvent.name         = req.body.name         }
   if(req.body.type         !== undefined) {updatedEvent.type         = req.body.type         }
   if(req.body.location     !== undefined) {updatedEvent.location     = req.body.location     }
   if(req.body.startTime    !== undefined) {updatedEvent.startTime    = req.body.startTime    }
   if(req.body.endTime      !== undefined) {updatedEvent.endTime      = req.body.endTime      }
   if(req.body.status       !== undefined) {updatedEvent.status       = req.body.status       }
-  if(req.body.pictures     !== undefined) {updatedEvent.participants = req.body.participants }
-  if(req.body.reviews      !== undefined) {updatedEvent.reviews      = req.body.reviews      }
+  if(req.body.organization !== undefined) {updatedEvent.organization = req.body.organization }
   // Save updated event
   Event.findByIdAndUpdate({_id: req.params.id}, updatedEvent, {new: true}, (err, event) => {
     if(err) {res.status(400).json(err)}
