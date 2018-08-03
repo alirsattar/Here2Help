@@ -29,7 +29,7 @@ router.post('/signup', (req, res, next) => {
     const zipCode       = req.body.zipCode;
     const phoneNumber   = req.body.phoneNumber;
     const orgAdmin      = req.body.orgAdmin;
-
+    
     if (!email || !password) {
         res.status(400).json({ message: 'Provide email and password' });
         return;
@@ -48,7 +48,7 @@ router.post('/signup', (req, res, next) => {
             lastName:       lastName,
             zipCode:        zipCode,
             phoneNumber:    phoneNumber,
-            orgAdmin:       orgAdmin
+            orgAdmin:       orgAdmin,
         });
         theUser.save((err) => {
             if (err) {
