@@ -27,9 +27,9 @@ router.post('/create', (req, res, next) => {
   if(!newEvent.status    || newEvent.status    === '') {res.status(400).json({message: 'The event status is required'     }); return}
   // Save new event to DB
   newEvent.save((err, event) => {
-    if(err) {res.status(400).json(err)}
-    else if(!event) {res.status(400).json({message: 'Unable to create event'})}
-    else {res.status(200).json(event)}
+    if(err)           {res.status(400).json(err)}
+    else if(!event)   {res.status(400).json({message: 'Unable to create event'})}
+    else              {res.status(200).json(event)}
   });
 });
 
@@ -78,13 +78,13 @@ router.post('/:id/addParticipants', (req, res, next) => {
 
 // ---------------------------------------------------------------------------------------------------------
 
-// // POST ROUTE FOR ADDING REVIEWS
-// router.post('/:id/addReview', (req, res, next) => {
-//   Event.findByIdAndUpdate(req.params.id, {$push: {reviews: req.body.review}}, {new:true}, (err, conf) => {
-//     if(err) {res.status(400).json(err)}
-//     else    {res.status(200).json(conf)}
-//   })
-// });
+// POST ROUTE FOR ADDING REVIEWS
+router.post('/:id/addReview/:reviewId', (req, res, next) => {
+  Event.findByIdAndUpdate(req.params.id, {$push: {reviews: req.params.reviewId}}, {new:true}, (err, conf) => {
+    if(err) {res.status(400).json(err)}
+    else    {res.status(200).json(conf)}
+  });
+});
 
 // ---------------------------------------------------------------------------------------------------------
 
@@ -103,7 +103,7 @@ router.post('/:id/delete', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
   Event.findById(req.params.id, (err, events) => {
     if(err) {res.status(400).json(err)}
-    else {res.status(200).json(events)};
+    else    {res.status(200).json(events)};
   })
 });
 

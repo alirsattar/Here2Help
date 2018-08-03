@@ -1,18 +1,18 @@
 require('dotenv').config();
 
-const bodyParser   = require('body-parser');
-const cookieParser = require('cookie-parser');
-const express      = require('express');
-const favicon      = require('serve-favicon');
-const hbs          = require('hbs');
-const mongoose     = require('mongoose');
-const logger       = require('morgan');
-const path         = require('path');
-
-const cors         = require('cors');
-
-const passport     = require('passport');
-const session      = require('express-session');
+const bodyParser    = require('body-parser');
+const cookieParser  = require('cookie-parser');
+const express       = require('express');
+const favicon       = require('serve-favicon');
+const hbs           = require('hbs');
+const mongoose      = require('mongoose');
+const logger        = require('morgan');
+const path          = require('path');
+  
+const cors          = require('cors');
+  
+const passport      = require('passport');
+const session       = require('express-session');
 const passportSetup = require('./config/passport');
 
 const app = express();
