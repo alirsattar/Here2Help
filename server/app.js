@@ -1,18 +1,18 @@
 require('dotenv').config();
 
-const bodyParser   = require('body-parser');
-const cookieParser = require('cookie-parser');
-const express      = require('express');
-const favicon      = require('serve-favicon');
-const hbs          = require('hbs');
-const mongoose     = require('mongoose');
-const logger       = require('morgan');
-const path         = require('path');
-
-const cors         = require('cors');
-
-const passport     = require('passport');
-const session      = require('express-session');
+const bodyParser    = require('body-parser');
+const cookieParser  = require('cookie-parser');
+const express       = require('express');
+const favicon       = require('serve-favicon');
+const hbs           = require('hbs');
+const mongoose      = require('mongoose');
+const logger        = require('morgan');
+const path          = require('path');
+  
+const cors          = require('cors');
+  
+const passport      = require('passport');
+const session       = require('express-session');
 const passportSetup = require('./config/passport');
 
 const app = express();
@@ -78,17 +78,25 @@ app.use(cors({
 const index = require('./routes/index');
 app.use('/', index);
 
+// ---------------------------------------------------------------------------------------------------------
+
 // USER AUTHENTICATION + CRUD ROUTES
 const usersRoutes = require('./routes/usersRoutes');
 app.use('/api/users', usersRoutes);
+
+// ---------------------------------------------------------------------------------------------------------
 
 // ORGANIZATION CRUD ROUTES
 const organizationsRoutes = require('./routes/organizationsRoutes');
 app.use('/api/orgs', organizationsRoutes);
 
+// ---------------------------------------------------------------------------------------------------------
+
 //EVENT CRUD ROUTES
 const eventsRoutes = require('./routes/eventsRoutes');
-app.use('/api/events', eventsRoutes)
+app.use('/api/events', eventsRoutes);
+
+// ---------------------------------------------------------------------------------------------------------
 
 // REVIEW CRUD ROUTES
 const reviewsRoutes = require('./routes/reviewsRoutes');
