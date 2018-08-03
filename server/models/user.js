@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 
+
+//need to add validation
+
 const userSchema = new Schema({
     firstName:            String,
     lastName:             String,

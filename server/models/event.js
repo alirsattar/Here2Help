@@ -6,6 +6,7 @@ const eventSchema = new Schema({
     user: {type: Schema.Types.ObjectId, ref: 'User'}, 
     role: {type: String, enum: ['organizer', 'sponsor', 'performer', 'staff', 'security']}
   }],
+  organization: {type: Schema.Types.ObjectId, ref: 'Organization', required: true}, 
   name: {type: String, required: true, unique: true},
   type: {type: String, required: true},
   location: {type: String, required: true},
