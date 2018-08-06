@@ -2,6 +2,7 @@ const express = require('express');
 const router  = express.Router();
 const Event = require('../models/event');
 const Organization = require('../models/organization');
+const User = require('../models/user');
 
 ///Push to org and user upon creation
 
@@ -31,7 +32,7 @@ router.post('/create/:orgId', (req, res, next) => {
     if(err)           {res.status(400).json(err)}
     else if(!event)   {res.status(400).json({message: 'Unable to create event'})}
     else              {
-      Organization.findByIdAndUpdate(req.params.orgId, {$push: {events: event._id}}, (err, org) => {
+      Organization.findByIdAndUpdate(req.params.orgId, {$each: {$push: {events: event._id}}}, (err, org) => {
         if(err)       {res.status(400).json(err)}
         else if(!org) {res.status(400).json({message: 'Organization not found'})}
         else          {res.status(200).json(event)}
@@ -75,9 +76,16 @@ router.post('/:id/update', (req, res, next) => {
 
 // POST ROUTE FOR ADDING PARTICIPANTS
 router.post('/:id/addParticipants', (req, res, next) => {
-  Event.findByIdAndUpdate(req.params.id, {$push: {participants: {$each: req.body.participants}}}, {new:true}, (err, conf) => {
+  let participants = req.body.participants;
+  Event.findByIdAndUpdate(req.params.id, {$push: {participants: {$each: participants}}}, {new:true}, (err, event) => {
     if(err) {res.status(400).json(err)}
-    else    {res.status(200).json(conf)}
+    else    {
+      User.updateMany({_id: participants}, {$push: {events: event._id}}, (err, conf) => {
+        if(err)        {res.status(400).json(err)}
+        else if(!conf) {res.status(400).json({message: 'Something went wrong!'})}
+        else           {res.status(200).json(conf)}
+      })
+    }
   })
 });
 
