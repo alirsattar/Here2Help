@@ -4,8 +4,6 @@ const Event = require('../models/event');
 const Organization = require('../models/organization');
 const User = require('../models/user');
 
-///Push to org and user upon creation
-
 // POST ROUTE FOR CREATING A NEW EVENT
 router.post('/create/:orgId', (req, res, next) => {
   let newEvent = new Event({
@@ -46,8 +44,8 @@ router.post('/create/:orgId', (req, res, next) => {
 // GET ROUTE FOR GETTING ALL EVENTS
 router.get('/', (req, res, next) => {
   Event.find((err, events) => {
-    if(err) {res.status(400).json(err)}
-    else {res.status(200).json(events)};
+    if(err)           {res.status(400).json(err)}
+    else              {res.status(200).json(events)};
   })
 });
 
@@ -67,8 +65,8 @@ router.post('/:id/update', (req, res, next) => {
   if(req.body.organization !== undefined) {updatedEvent.organization = req.body.organization }
   // Save updated event
   Event.findByIdAndUpdate({_id: req.params.id}, updatedEvent, {new: true}, (err, event) => {
-    if(err) {res.status(400).json(err)}
-    else    {res.status(200).json(event)}
+    if(err)           {res.status(400).json(err)}
+    else              {res.status(200).json(event)}
   }); 
 });
 
@@ -94,8 +92,8 @@ router.post('/:id/addParticipants', (req, res, next) => {
 // POST ROUTE FOR ADDING REVIEWS
 router.post('/:id/addReview/:reviewId', (req, res, next) => {
   Event.findByIdAndUpdate(req.params.id, {$push: {reviews: req.params.reviewId}}, {new:true}, (err, conf) => {
-    if(err) {res.status(400).json(err)}
-    else    {res.status(200).json(conf)}
+    if(err)           {res.status(400).json(err)}
+    else              {res.status(200).json(conf)}
   });
 });
 
@@ -105,8 +103,8 @@ router.post('/:id/addReview/:reviewId', (req, res, next) => {
 router.post('/:id/delete', (req, res, next) => {
   // Save updated event
   Event.findByIdAndUpdate({_id: req.params.id}, {status: 'cancelled'}, {new: true}, (err, event) => {
-    if(err) {res.status(400).json(err)}
-    else    {res.status(200).json(event)}
+    if(err)           {res.status(400).json(err)}
+    else              {res.status(200).json(event)}
   }); 
 });
 
@@ -115,9 +113,9 @@ router.post('/:id/delete', (req, res, next) => {
 // GET ROUTE FOR GETTING ONE EVENT
 router.get('/:id', (req, res, next) => {
   Event.findById(req.params.id, (err, events) => {
-    if(err) {res.status(400).json(err)}
-    else    {res.status(200).json(events)};
-  })
+    if(err)           {res.status(400).json(err)}
+    else              {res.status(200).json(events)}
+  });
 });
 
 
