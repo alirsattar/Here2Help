@@ -8,15 +8,15 @@ const Organization = require('../models/organization');
 // POST ROUTE FOR CREATING A NEW ORGANIZATION
 router.post('/create', (req, res, next) => {
   let newOrg = new Organization ({
-    name: req.body.name,
-    email: req.body.email,
+    name:        req.body.name,
+    email:       req.body.email,
     phoneNumber: req.body.phoneNumber,
     description: req.body.description,
-    logo: req.body.logo,
-    address: req.body.address,
-    reviews: [],
-    staff: [],
-    events: []
+    logo:        req.body.logo,
+    address:     req.body.address,
+    reviews:     [],
+    staff:       [],
+    events:      []
   });
   newOrg.save((error, org) => {
     if(error)       {res.status(400).json(error);}

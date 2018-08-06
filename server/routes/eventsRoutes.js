@@ -1,23 +1,22 @@
 const express = require('express');
 const router  = express.Router();
 const Event = require('../models/event');
+const Organization = require('../models/organization');
 
 // POST ROUTE FOR CREATING A NEW EVENT
-router.post('/create', (req, res, next) => {
+router.post('/create/:orgId', (req, res, next) => {
   let newEvent = new Event({
-    participants: [],
-    name: req.body.name,
-    type: req.body.type,
-    location: req.body.location,
-    startTime: new Date(req.body.startTime),
-    endTime: new Date(req.body.endTime),
-    status: req.body.status,
-    pictures: [],
-    reviews: []
+    organization: req.params.orgId,
+    name:         req.body.name,
+    type:         req.body.type,
+    location:     req.body.location,
+    startTime:    new Date(req.body.startTime),
+    endTime:      new Date(req.body.endTime),
+    status:       req.body.status,
+    pictures:     [],
+    reviews:      [],
+    participants: []
   });
-
-// ---------------------------------------------------------------------------------------------------------
-
   // Validate fields
   if(!newEvent.name      || newEvent.name      === '') {res.status(400).json({message: 'The event name is required'       }); return}
   if(!newEvent.type      || newEvent.type      === '') {res.status(400).json({message: 'The event type is required'       }); return}
@@ -29,7 +28,13 @@ router.post('/create', (req, res, next) => {
   newEvent.save((err, event) => {
     if(err)           {res.status(400).json(err)}
     else if(!event)   {res.status(400).json({message: 'Unable to create event'})}
-    else              {res.status(200).json(event)}
+    else              {
+      Organization.findByIdAndUpdate(req.params.orgId, {$push: {events: event._id}}, (err, org) => {
+        if(err)       {res.status(400).json(err)}
+        else if(!org) {res.status(400).json({message: 'Organization not found'})}
+        else          {res.status(200).json(event)}
+      });
+    }
   });
 });
 
