@@ -17,7 +17,8 @@ const userSchema = new Schema({
     phoneNumber:          Number,
     orgAdmin:             [{type: Schema.Types.ObjectId, ref: 'Organization', default: []}],
     events:               [{type: Schema.Types.ObjectId, ref: 'Event', default: []}],
-    organizations:        [{type: Schema.Types.ObjectId, ref: 'Organization', default: []}]
+    organizations:        [{type: Schema.Types.ObjectId, ref: 'Organization', default: []}],
+    reviews:              [{type: Schema.Types.ObjectId, ref: 'Review', default: []}]
 },
 {  
     usePushEach: true
