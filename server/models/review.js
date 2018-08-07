@@ -5,9 +5,10 @@ const reviewSchema = new Schema({
     author:         { type: Schema.Types.ObjectId, ref: 'User' },
     content:        String,
     eventID:        { type: Schema.Types.ObjectId, ref: 'Event' },
-    orgID:          { type: Schema.Types.ObjectId, ref: 'Organization' }
-},
-{  
+    orgID:          { type: Schema.Types.ObjectId, ref: 'Organization' },
+    reviewPhoto:    { type: String, default: '../public/images/review_placeholder.png'}// <-- TO BE REPLACED BY USER'S
+},                                                                                    //      PROFILE PICTURE ON REVIEW
+{                                                                                     //      CREATION IN THE DB
     usePushEach: true
 },{
     timestamps: true

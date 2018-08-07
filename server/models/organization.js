@@ -13,7 +13,8 @@ const organizationSchema = new Schema({
                     user: {type: Schema.Types.ObjectId, ref: 'User'},
                     role: {type: String, enum: ['ADMIN', 'VOLUNTEER']}
                   }], 
-  events:         [{type: Schema.Types.ObjectId, ref: 'Event'}]
+  events:         [{type: Schema.Types.ObjectId, ref: 'Event'}],
+  mainPhoto:      {type: String, default: '../public/images/org_placeholder.png'}
 });
 const Organization = mongoose.model('Organization', organizationSchema);
 module.exports = Organization;
