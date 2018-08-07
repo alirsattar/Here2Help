@@ -1,5 +1,6 @@
-const mongoose    = require('mongoose');
-const Schema      = mongoose.Schema;
+const mongoose      = require('mongoose');
+const Schema        = mongoose.Schema;
+const timestamps    = require('mongoose-timestamp');
 
 const organizationSchema = new Schema({
   name:           {type: String, required: true, unique: true},
@@ -16,5 +17,6 @@ const organizationSchema = new Schema({
   events:         [{type: Schema.Types.ObjectId, ref: 'Event'}],
   mainPhoto:      {type: String, default: '../public/images/org_placeholder.png'}
 });
+userSchema.plugin(timestamps);
 const Organization = mongoose.model('Organization', organizationSchema);
 module.exports = Organization;

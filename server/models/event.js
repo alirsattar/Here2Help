@@ -1,9 +1,10 @@
-const mongoose = require('mongoose');
-const Schema   = mongoose.Schema;
+const mongoose      = require('mongoose');
+const Schema        = mongoose.Schema;
+const timestamps    = require('mongoose-timestamp');
 
 const eventSchema = new Schema({
   participants:[{
-    user:         {type: Schema.Types.ObjectId, ref: 'User'}, 
+    user:         {type: Schema.Types.ObjectId, ref: 'User'},
     role:         {type: String, enum: ['organizer', 'sponsor', 'performer', 'staff', 'security']}
   }], 
   organization:   {type: Schema.Types.ObjectId, ref: 'Organization',  required: true}, 
@@ -17,6 +18,6 @@ const eventSchema = new Schema({
   reviews:        [{type: Schema.Types.ObjectId, ref: 'Review'}],
   mainPhoto:      {type: String, default: '../public/images/event_placeholder.png'}
 });
-
+userSchema.plugin(timestamps);
 const Event = mongoose.model('Event', eventSchema);
 module.exports = Event;
