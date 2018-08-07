@@ -1,5 +1,6 @@
-const mongoose = require('mongoose');
-const Schema   = mongoose.Schema;
+const mongoose      = require('mongoose');
+const Schema        = mongoose.Schema;
+const timestamps    = require('mongoose-timestamp');
 
 const reviewSchema = new Schema({
     author:         { type: Schema.Types.ObjectId, ref: 'User' },
@@ -13,6 +14,8 @@ const reviewSchema = new Schema({
 },{
     timestamps: true
 });
+
+userSchema.plugin(timestamps);
 
 const Review = mongoose.model('Review', reviewSchema);
 
