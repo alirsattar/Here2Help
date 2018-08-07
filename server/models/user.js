@@ -1,5 +1,6 @@
-const mongoose = require('mongoose');
-const Schema   = mongoose.Schema;
+const mongoose      = require('mongoose');
+const Schema        = mongoose.Schema;
+const timestamps    = require('mongoose-timestamp');
 
 
 //need to add validation
@@ -21,8 +22,12 @@ const userSchema = new Schema({
 {  
     usePushEach: true
 },{
-    timestamps: true
+    timestamps: {
+      timestamps: true
+    }
 });
+
+userSchema.plugin(timestamps);
 
 const User = mongoose.model('User', userSchema);
 
