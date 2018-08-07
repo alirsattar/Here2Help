@@ -18,17 +18,8 @@ router.post('/create', (req, res, next) => {
     else                        {res.redirect(307, `/api/orgs/${newReview.orgID}/addReview/${newReview._id}`)}
   })
     .then((theNewReview)=>{
-        User.findByIdAndUpdate(theAuthor, {$push: {reviews: theNewReview._id}})
-            .then((response)=>{
-                // console.log(response);
-            })
-            .catch((err)=>{
-                // console.log(err);
-            });
-    })
-    .catch((err)=>{
-        // console.log(err);
-    });
+        User.findByIdAndUpdate(theAuthor, {$push: {reviews: theNewReview._id}}).then((response)=>{}).catch((err)=>{});
+    }).catch((err)=>{});
 });
 
 // ---------------------------------------------------------------------------------------------------------
