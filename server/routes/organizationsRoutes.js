@@ -72,11 +72,14 @@ router.post('/:id/delete', (req, res, next) => {
   
 // GET ROUTE FOR GETTING ONE ORGANIZATION
 router.get('/:id', (req, res, next) => {
-  Organization.findById(req.params.id, (err, org) => {
-    if(err)         {res.status(400).json(err)}
-    else if (!org)  {res.status(400).json({message: 'Organization does not exist'})}
-    else            {res.status(200).json(org)}
-  });
+  Organization.findById(req.params.id)
+  .populate('staff')
+  .populate('reviews')
+  .populate('events')
+  .then(org => {
+    if (!org)       {res.status(400).json({message: 'Organization does not exist'})}
+    else            {res.status(200).json(org)}})
+  .catch(error =>   {res.status(400).json()})
 });
 
 module.exports = router;
