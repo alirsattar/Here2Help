@@ -18,6 +18,6 @@ const eventSchema = new Schema({
   reviews:        [{type: Schema.Types.ObjectId, ref: 'Review'}],
   mainPhoto:      {type: String, default: '../public/images/event_placeholder.png'}
 });
-userSchema.plugin(timestamps);
+eventSchema.plugin(timestamps);
 const Event = mongoose.model('Event', eventSchema);
 module.exports = Event;

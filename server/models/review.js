@@ -15,7 +15,7 @@ const reviewSchema = new Schema({
     timestamps: true
 });
 
-userSchema.plugin(timestamps);
+reviewSchema.plugin(timestamps);
 
 const Review = mongoose.model('Review', reviewSchema);
 
