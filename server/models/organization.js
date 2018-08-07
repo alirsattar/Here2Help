@@ -17,6 +17,6 @@ const organizationSchema = new Schema({
   events:         [{type: Schema.Types.ObjectId, ref: 'Event'}],
   mainPhoto:      {type: String, default: '../public/images/org_placeholder.png'}
 });
-userSchema.plugin(timestamps);
+organizationSchema.plugin(timestamps);
 const Organization = mongoose.model('Organization', organizationSchema);
 module.exports = Organization;
