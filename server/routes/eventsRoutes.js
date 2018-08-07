@@ -78,7 +78,8 @@ router.post('/:id/addParticipants', (req, res, next) => {
   Event.findByIdAndUpdate(req.params.id, {$push: {participants: {$each: participants}}}, {new:true}, (err, event) => {
     if(err) {res.status(400).json(err)}
     else    {
-      User.updateMany({_id: participants}, {$push: {events: event._id}}, (err, conf) => {
+      let users = req.body.participants.map(u => {return u.user})
+      User.updateMany({_id: {$in: users}}, {$push: {events: event._id}}, (err, conf) => {
         if(err)        {res.status(400).json(err)}
         else if(!conf) {res.status(400).json({message: 'Something went wrong!'})}
         else           {res.status(200).json(conf)}
