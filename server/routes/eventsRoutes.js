@@ -1,8 +1,8 @@
-const express = require('express');
-const router  = express.Router();
-const Event = require('../models/event');
-const Organization = require('../models/organization');
-const User = require('../models/user');
+const express           = require('express');
+const router            = express.Router();
+const Event             = require('../models/event');
+const Organization      = require('../models/organization');
+const User              = require('../models/user');
 
 // POST ROUTE FOR CREATING A NEW EVENT
 router.post('/create/:orgId', (req, res, next) => {
