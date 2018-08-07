@@ -15,7 +15,7 @@ const organizationSchema = new Schema({
                     role: {type: String, enum: ['ADMIN', 'VOLUNTEER']}
                   }], 
   events:         [{type: Schema.Types.ObjectId, ref: 'Event'}],
-  mainPhoto:      {type: String, default: '../public/images/org_placeholder.png'}
+  mainPhoto:      {type: String, default: '/assets/images/org_placeholder.png'}
 });
 organizationSchema.plugin(timestamps);
 const Organization = mongoose.model('Organization', organizationSchema);

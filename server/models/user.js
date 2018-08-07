@@ -13,7 +13,7 @@ const userSchema = new Schema({
     password:             String,
     skills:               [String],
     preferredEventType:   [String],
-    profilePicture:       {type: String, default: '../public/images/user_placeholder.jpg'},
+    profilePicture:       {type: String, default: '/assets/images/user_placeholder.jpg'},
     phoneNumber:          Number,
     orgAdmin:             [{type: Schema.Types.ObjectId, ref: 'Organization', default: []}],
     events:               [{type: Schema.Types.ObjectId, ref: 'Event', default: []}],
