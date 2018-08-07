@@ -7,7 +7,7 @@ const reviewSchema = new Schema({
     content:        String,
     eventID:        { type: Schema.Types.ObjectId, ref: 'Event' },
     orgID:          { type: Schema.Types.ObjectId, ref: 'Organization' },
-    reviewPhoto:    { type: String, default: '../public/images/review_placeholder.png'}// <-- TO BE REPLACED BY USER'S
+    reviewPhoto:    { type: String, default: '/assets/images/review_placeholder.png'}// <-- TO BE REPLACED BY USER'S
 },                                                                                    //      PROFILE PICTURE ON REVIEW
 {                                                                                     //      CREATION IN THE DB
     usePushEach: true

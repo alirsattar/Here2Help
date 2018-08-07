@@ -16,7 +16,7 @@ const eventSchema = new Schema({
   status:         {type: String, enum: ['confirmed', 'pending', 'cancelled'],default: 'pending'},
   pictures:       {type: String},
   reviews:        [{type: Schema.Types.ObjectId, ref: 'Review'}],
-  mainPhoto:      {type: String, default: '../public/images/event_placeholder.png'}
+  mainPhoto:      {type: String, default: '/assets/images/event_placeholder.png'}
 });
 eventSchema.plugin(timestamps);
 const Event = mongoose.model('Event', eventSchema);
