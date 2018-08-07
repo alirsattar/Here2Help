@@ -1,20 +1,34 @@
 const express           = require('express');
 const router            = express.Router();
 const Review            = require('../models/review');
+const User              = require('../models/user');
 
 // POST ROUTE FOR CREATING A NEW REVIEW (OF AN ORG OR AN EVENT)
 router.post('/create', (req, res, next) => {
-  let newReview = new Review ({
-    author:     req.body.author,
-    content:    req.body.content,
-    eventID:    req.body.eventID,
-    orgID:      req.body.orgID
+    const theAuthor = req.body.author;
+    let newReview = new Review ({
+        author:     req.body.author,
+        content:    req.body.content,
+        eventID:    req.body.eventID,
+        orgID:      req.body.orgID
   });
   newReview.save(error => {
     if(error)                   {res.status(400).json(error);} 
     else if(newReview.eventID)  {res.redirect(307, `/api/events/${newReview.eventID}/addReview/${newReview._id}`)}
     else                        {res.redirect(307, `/api/orgs/${newReview.orgID}/addReview/${newReview._id}`)}
-  });
+  })
+    .then((theNewReview)=>{
+        User.findByIdAndUpdate(theAuthor, {$push: {reviews: theNewReview._id}})
+            .then((response)=>{
+                // console.log(response);
+            })
+            .catch((err)=>{
+                // console.log(err);
+            });
+    })
+    .catch((err)=>{
+        console.log(err);
+    });
 });
 
 // ---------------------------------------------------------------------------------------------------------

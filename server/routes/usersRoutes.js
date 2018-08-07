@@ -126,11 +126,27 @@ router.post('/delete/:userID', (req, res, next) => {
 // GET ROUTE FOR PULLING SINGLE USER'S INFO
 router.get('/:userID', (req, res, next) => {
     const userID = req.params.userID;
-    User.findById(userID, (err, theUser) => {
-        if(err) {res.status(400).json(err)}
-        else if (!theUser) {res.status(400).json({message: 'User does not exist'})}
+    User.findById(userID)
+    .populate('events')
+    .populate('organizations')
+    .populate('reviews')
+        .then((theUser) => {
+        if (!theUser) {res.status(400).json({message: 'User does not exist'})}
         else {res.status(200).json(theUser)}
-    });
+        })
+        .catch((err)=>{
+            res.status(400).json(err)
+        });
 });
+
+// ORIGINAL ROUTE FOR SINGLE USER INFO
+// router.get('/:userID', (req, res, next) => {
+//     const userID = req.params.userID;
+//     User.findById(userID, (err, theUser) => {
+//         if(err) {res.status(400).json(err)}
+//         else if (!theUser) {res.status(400).json({message: 'User does not exist'})}
+//         else {res.status(200).json(theUser)}
+//     });
+// });
 
 module.exports = router;

@@ -13,7 +13,7 @@ const eventSchema = new Schema({
   location:       {type: String,                                      required: true},
   startTime:      {type: Date,                                        required: true},
   endTime:        {type: Date,                                        required: true},
-  status:         {type: String, enum: ['confirmed', 'pending', 'cancelled']},
+  status:         {type: String, enum: ['confirmed', 'pending', 'cancelled'],default: 'pending'},
   pictures:       {type: String},
   reviews:        [{type: Schema.Types.ObjectId, ref: 'Review'}],
   mainPhoto:      {type: String, default: '../public/images/event_placeholder.png'}

@@ -30,7 +30,7 @@ router.post('/create/:orgId', (req, res, next) => {
     if(err)           {res.status(400).json(err)}
     else if(!event)   {res.status(400).json({message: 'Unable to create event'})}
     else              {
-      Organization.findByIdAndUpdate(req.params.orgId, {$each: {$push: {events: event._id}}}, (err, org) => {
+      Organization.findByIdAndUpdate(req.params.orgId, {$push: {events: event._id}}, (err, org) => {
         if(err)       {res.status(400).json(err)}
         else if(!org) {res.status(400).json({message: 'Organization not found'})}
         else          {res.status(200).json(event)}
