@@ -49,8 +49,8 @@ router.post('/delete/:reviewID', (req, res, next) => {
 
 // ---------------------------------------------------------------------------------------------------------
   
-// GET ROUTE FOR GETTING ONE REVIEW
-router.get('/allreviews', (req, res, next) => {
+// GET ROUTE FOR GETTING ALL REVIEWS
+router.get('/', (req, res, next) => {
     Review.find((err, theReviews) => {
     if(err)                     {res.status(400).json(err)}
     else if (!theReviews)       {res.status(400).json({message: 'Reviews not found'})}
