@@ -11,50 +11,50 @@ mongoose.connect(`mongodb://localhost/${dbName}`);
 
 const usersArray = [
 
-// {
+{
 
-//     firstName:                  'Giannini',
-//     lastName:                   'Charles',
-//     zipCode:                    '33014',
-//     email:                      'giannini@ironhack.com',
-//     password:                   'gianninicharles',
-//     profilePicture:             'https://media.licdn.com/dms/image/C5603AQEgBk_NtZI-cA/profile-displayphoto-shrink_800_800/0?e=1539216000&v=beta&t=owhW0atmdkgkX6zI4Z6UqrVu-6GOTNZGEgkv-FgmevY',
-//     phoneNumber:                '1234567890',
+    firstName:                  'Giannini',
+    lastName:                   'Charles',
+    zipCode:                    '33014',
+    email:                      'giannini@ironhack.com',
+    password:                   'gianninicharles',
+    profilePicture:             'https://media.licdn.com/dms/image/C5603AQEgBk_NtZI-cA/profile-displayphoto-shrink_800_800/0?e=1539216000&v=beta&t=owhW0atmdkgkX6zI4Z6UqrVu-6GOTNZGEgkv-FgmevY',
+    phoneNumber:                '1234567890',
 
-// },
-// {
+},
+{
 
-//     firstName:                  'Chad',
-//     lastName:                   'Barcelo',
-//     zipCode:                    '33129',
-//     email:                      'chad@ironhack.com',
-//     password:                   'chadbarcelo',
-//     profilePicture:             'https://media.licdn.com/dms/image/C4E03AQHpx8aIx3QQ8g/profile-displayphoto-shrink_800_800/0?e=1539216000&v=beta&t=_adTfH1P8cFYHsp_tO-6BgkJO1aHiChAHiqG5f-fL4Y',
-//     phoneNumber:                '1234567890'
+    firstName:                  'Chad',
+    lastName:                   'Barcelo',
+    zipCode:                    '33129',
+    email:                      'chad@ironhack.com',
+    password:                   'chadbarcelo',
+    profilePicture:             'https://media.licdn.com/dms/image/C4E03AQHpx8aIx3QQ8g/profile-displayphoto-shrink_800_800/0?e=1539216000&v=beta&t=_adTfH1P8cFYHsp_tO-6BgkJO1aHiChAHiqG5f-fL4Y',
+    phoneNumber:                '1234567890'
 
-// },
-// {
+},
+{
 
-//     firstName:                  'Evan',
-//     lastName:                   'Londoño',
-//     zipCode:                    '33023',
-//     email:                      'evan@ironhack.com',
-//     password:                   'evanlondono',
-//     profilePicture:             'https://media.licdn.com/dms/image/C4E03AQHhq6XMiGTglQ/profile-displayphoto-shrink_800_800/0?e=1539216000&v=beta&t=rF-ciK1F84A3pl-JYYT0ryK9CXFV7f7o77izArxfsNY',
-//     phoneNumber:                '1234567890'
+    firstName:                  'Evan',
+    lastName:                   'Londoño',
+    zipCode:                    '33023',
+    email:                      'evan@ironhack.com',
+    password:                   'evanlondono',
+    profilePicture:             'https://media.licdn.com/dms/image/C4E03AQHhq6XMiGTglQ/profile-displayphoto-shrink_800_800/0?e=1539216000&v=beta&t=rF-ciK1F84A3pl-JYYT0ryK9CXFV7f7o77izArxfsNY',
+    phoneNumber:                '1234567890'
 
-// },
-// {
+},
+{
 
-//     firstName:                  'Sandra',
-//     lastName:                   'Boskovic',
-//     zipCode:                    '33129',
-//     email:                      'sandra@ironhack.com',
-//     password:                   'sandraboskovic',
-//     profilePicture:             'https://media.licdn.com/dms/image/C4D03AQGIXXCTW4uCYQ/profile-displayphoto-shrink_800_800/0?e=1539216000&v=beta&t=R5BSd9c9SOWK58MSP9urAmoH0vGzpCc3qhd1D7xWMek',
-//     phoneNumber:                '1234567890'
+    firstName:                  'Sandra',
+    lastName:                   'Boskovic',
+    zipCode:                    '33129',
+    email:                      'sandra@ironhack.com',
+    password:                   'sandraboskovic',
+    profilePicture:             'https://media.licdn.com/dms/image/C4D03AQGIXXCTW4uCYQ/profile-displayphoto-shrink_800_800/0?e=1539216000&v=beta&t=R5BSd9c9SOWK58MSP9urAmoH0vGzpCc3qhd1D7xWMek',
+    phoneNumber:                '1234567890'
 
-// },
+},
 {
 
     firstName:                  'Marcos',
@@ -294,6 +294,8 @@ const orgsArray = [
     }
 
 ];
+
+// console.log(usersArray.length);
 
 User.create(usersArray)
     .then((response)=>{
