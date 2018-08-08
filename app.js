@@ -72,7 +72,7 @@ app.locals.title = 'Express - Generated with IronGenerator';
 // SETTING UP CORS
 app.use(cors({
   credentials: true,
-  origin: ['http://localhost:4200']
+  origin: ['http://localhost:4200', 'http://here2help.herokuapp.com/']
 }));
 
 const index = require('./routes/index');
