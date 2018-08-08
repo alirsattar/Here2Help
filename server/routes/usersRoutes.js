@@ -116,8 +116,8 @@ router.post('/delete/:userID', (req, res, next) => {
     const userID = req.params.userID;
     User.findByIdAndRemove(userID, (err, theUser) => {
         if(err) {res.status(400).json(err)}
-        else if(!theUser) {res.status(400).json({message: 'User does not exist'})}
-        else {res.status(200).json({message: 'Success'})}
+        else if(!theUser)       {res.status(400).json({message: 'User does not exist'})}
+        else                    {res.status(200).json({message: 'Success'})}
     });
 });
 
@@ -131,11 +131,23 @@ router.get('/:userID', (req, res, next) => {
     .populate('organizations')
     .populate('reviews')
         .then((theUser) => {
-        if (!theUser) {res.status(400).json({message: 'User does not exist'})}
-        else {res.status(200).json(theUser)}
+        if (!theUser)           {res.status(400).json({message: 'User does not exist'})}
+        else                    {res.status(200).json(theUser)}
         })
         .catch((err)=>{
             res.status(400).json(err)
+        });
+});
+
+// GET ROUTE FOR PULLING ALL USERS
+router.get('/', (req,res,next)=>{
+    User.find()
+        .then((allUsers)=>{
+            if (!allUsers)      {res.status(400).json({message: 'User does not exist'})}
+            else                {res.status(200).json(allUsers)}
+        })
+        .catch((err)=>{
+            res.status(400).json(err);
         });
 });
 

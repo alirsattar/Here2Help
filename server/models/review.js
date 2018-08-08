@@ -4,6 +4,7 @@ const timestamps    = require('mongoose-timestamp');
 
 const reviewSchema = new Schema({
     author:         { type: Schema.Types.ObjectId, ref: 'User' },
+    subject:        { type: Schema.Types.ObjectId },
     content:        String,
     eventID:        { type: Schema.Types.ObjectId, ref: 'Event' },
     orgID:          { type: Schema.Types.ObjectId, ref: 'Organization' },
