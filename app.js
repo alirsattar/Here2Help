@@ -103,7 +103,7 @@ const reviewsRoutes = require('./routes/reviewsRoutes');
 app.use('/api/reviews', reviewsRoutes);
 
 app.use((req,res,next)=>{                          //<-- THIS LINE IS WHAT LINKS TO ALL OUR ANGULAR ROUTES ONCE WE
-  res.sendfile(_dirname + '/public/index.html');   //    INCORPORATE THE ANGULAR APP INTO THE EXPRESS APP
+  res.sendfile(__dirname + '/public/index.html');  //    INCORPORATE THE ANGULAR APP INTO THE EXPRESS APP
 });
 
 module.exports = app;
