@@ -295,25 +295,14 @@ const orgsArray = [
 
 ];
 
-// console.log(usersArray.length);
-
-User.create(usersArray)
-    .then((response)=>{
-        console.log(`created ${response.length} users`);
-        // Book.create(books)
-        //     .then((result)=>{
-        //         console.log(`created ${result.length} books`);
-        //         mongoose.disconnect();
-        //     })
-        //     .catch((err)=>{
-        //         console.log(err)
-        //     })
-
-    //book.create ends here
-
-
-
-})
-.catch((err)=>{
-  console.log('didnt work', err)
-});
+// User.create(usersArray)
+//     .then((response)=>{
+//         console.log(`created ${response.length} users`);
+// })
+// Organization.create(orgsArray)
+//     .then((response)=>{
+//         console.log(`created ${response.length} Orgs`);
+// })
+// .catch((err)=>{
+//   console.log('didnt work', err)
+// });
