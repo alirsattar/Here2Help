@@ -1,6 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const Organization = require('../models/organization');
+const User = require('../models/user');
 
 
 //need to ensure front end has email type validation
@@ -59,6 +60,22 @@ router.post('/:id/addReview/:reviewId', (req, res, next) => {
   });
 });
 
+// POST ROUTE FOR ADDING STAFF
+router.post('/:id/addStaff', (req, res, next) => {
+  let staff = req.body.staff;
+  Organization.findByIdAndUpdate(req.params.id, {$push: {staff: {$each: staff}}}, {new: true}, (err, org) => {
+    if(err)             {res.status(400).json(err)}
+    else {
+      staff = staff.map(u => {return u.user});
+      User.updateMany({_id: {$in: staff}}, {$push: {organizations: org._id}}, (err, conf) => {
+        if(err)         {res.status(400).json(err)}
+        else if (!conf) {res.status(400).json({message: 'Something went wrong'})}
+        else            {res.status(200).json(conf)}
+      })
+    }
+  })
+});
+
 // POST ROUTE FOR DELETING ONE ORGANIZATION
 router.post('/:id/delete', (req, res, next) => {
   Organization.findByIdAndRemove(req.params.id, (err, org) => {
@@ -73,9 +90,11 @@ router.post('/:id/delete', (req, res, next) => {
 // GET ROUTE FOR GETTING ONE ORGANIZATION
 router.get('/:id', (req, res, next) => {
   Organization.findById(req.params.id)
-  .populate('staff')
   .populate('reviews')
+  .populate({path: 'reviews', populate: {path: 'author', model: 'User'}})
   .populate('events')
+  .populate('staff')
+  .populate({path: 'staff.user', populate: {path: 'user', model: 'User'}})
   .then(org => {
     if (!org)       {res.status(400).json({message: 'Organization does not exist'})}
     else            {res.status(200).json(org)}})
