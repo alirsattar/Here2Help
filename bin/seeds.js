@@ -9,19 +9,6 @@
 // const dbName            = 'server';
 // mongoose.connect(`mongodb://localhost/${dbName}`);
 
-const twilio            = require('twilio');
-
-var accountSid          = 'ACc6a4cb26c37136316fddb656869c5dd1'; // Your Account SID from www.twilio.com/console
-var authToken           = '4be46f4a8edae754c758b1b4a8dba46d';   // Your Auth Token from www.twilio.com/console
-
-var client              = new twilio(accountSid, authToken);
-
-client.messages.create({
-    body:               `Welcome to Here2Help. We're glad you joined. :)`,
-    to:                 '+15613861694',  // Text this number
-    from:               '+13057457209' // From a valid Twilio number
-})
-.then((message) => console.log(message.sid));
 
 // const usersArray = [
 
