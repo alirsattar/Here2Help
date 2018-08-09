@@ -60,6 +60,14 @@ router.post('/:id/addReview/:reviewId', (req, res, next) => {
   });
 });
 
+// POST ROUTE FOR ADDING PHOTOS
+router.post('/:id/addPhoto/', (req, res, next) => {
+  Organization.findByIdAndUpdate(req.params.id, {$push: {orgPhotos: req.body.photo}}, {new:true}, (err, conf) => {
+    if(err)         {res.status(400).json(err)}
+    else            {res.status(200).json(conf)}
+  });
+});
+
 // POST ROUTE FOR ADDING STAFF
 router.post('/:id/addStaff', (req, res, next) => {
   let staff = req.body.staff;

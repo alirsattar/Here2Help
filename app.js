@@ -20,7 +20,7 @@ const app = express();
 // SETTING UP MONGOOSE CONNECTINO TO MONGODB
 mongoose.Promise = Promise;
 mongoose
-  .connect('mongodb://localhost/server', {useMongoClient: true})
+  .connect(process.env.MONGODB_URI, {useMongoClient: true})
   .then(() => {
     console.log('Connected to Mongo!')
   }).catch(err => {
@@ -72,7 +72,7 @@ app.locals.title = 'Express - Generated with IronGenerator';
 // SETTING UP CORS
 app.use(cors({
   credentials: true,
-  origin: ['http://localhost:4200']
+  origin: ['http://localhost:4200', 'http://here2help.herokuapp.com/']
 }));
 
 const index = require('./routes/index');
@@ -102,8 +102,8 @@ app.use('/api/events', eventsRoutes);
 const reviewsRoutes = require('./routes/reviewsRoutes');
 app.use('/api/reviews', reviewsRoutes);
 
-// app.use((req,res,next)=>{                          <-- THIS LINE IS WHAT LINKS TO ALL OUR ANGULAR ROUTES ONCE WE
-//   res.sendfile(_dirname + '/public/index.html');       INCORPORATE THE ANGULAR APP INTO THE EXPRESS APP
-// });
+app.use((req,res,next)=>{                          //<-- THIS LINE IS WHAT LINKS TO ALL OUR ANGULAR ROUTES ONCE WE
+  res.sendfile(__dirname + '/public/index.html');  //    INCORPORATE THE ANGULAR APP INTO THE EXPRESS APP
+});
 
 module.exports = app;
