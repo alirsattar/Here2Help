@@ -7,6 +7,7 @@ const passport      = require('passport');
 const twilio        = require('twilio');
 
 
+
 // POST ROUTE FOR CHANGING USER'S INFO
 router.post('/edit/:userID', (req, res, next) => {
     const userID = req.params.userID;
@@ -31,6 +32,8 @@ router.post('/signup', (req, res, next) => {
     const zipCode       = req.body.zipCode;
     const phoneNumber   = req.body.phoneNumber;
     const orgAdmin      = req.body.orgAdmin;
+
+
     
     if (!email || !password) {
         res.status(400).json({ message: 'Provide email and password' });
