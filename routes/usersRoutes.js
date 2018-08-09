@@ -4,6 +4,8 @@ const User          = require('../models/user');
 const bcrypt        = require('bcryptjs');
 const passport      = require('passport');
 
+const twilio        = require('twilio');
+
 
 // POST ROUTE FOR CHANGING USER'S INFO
 router.post('/edit/:userID', (req, res, next) => {
