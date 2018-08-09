@@ -2,6 +2,8 @@ const express           = require('express');
 const router            = express.Router();
 const Review            = require('../models/review');
 const User              = require('../models/user');
+const Organization      = require('../models/organization');
+const Events            = require('../models/event');
 
 // POST ROUTE FOR CREATING A NEW REVIEW (OF AN ORG OR AN EVENT)
 router.post('/create', (req, res, next) => {
@@ -43,7 +45,20 @@ router.post('/delete/:reviewID', (req, res, next) => {
     Review.findByIdAndRemove(reviewID, (err, theReview) => {
         if(err)                 {res.status(400).json(err)}
         else if(!theReview)     {res.status(400).json({message: 'Review does not exist'})}
-        else                    {res.status(200).json({message: 'Success'})}
+        else                    {theReview => {
+            User.findByIdAndUpdate(theReview.author, {$pull: {reviews: reviewID}}, {new: true})
+            if(theReview.orgID) {
+                Organization.findbyIdAndUpdate(theReview.orgID, {$pull: {reviews: theReview._id}}, {new: true}, (err, res) => {
+                    if(err)     {res.status(400).json(err)}
+                    else        {res.status(200).json(res)}
+                });
+            } else if (theReview.eventID) {
+                Events.findbyIdAndUpdate(theReview.eventID, {$pull: {reviews: theReview._id}}, {new: true}, (err, res) => {
+                    if(err)     {res.status(400).json(err)}
+                    else        {res.status(200).json(res)}
+                });
+            }
+        }}
     });
 });
 
