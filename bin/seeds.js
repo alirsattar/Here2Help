@@ -7,7 +7,7 @@ const Organization = require('../models/organization');
 const Review = require('../models/review');
 
 const dbName = 'server';
-mongoose.connect(`mongodb://localhost/${dbName}`);
+mongoose.connect(process.env.MONGODB_URI);
 
 
 const usersArray = [
