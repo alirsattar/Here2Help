@@ -14,7 +14,7 @@ const eventSchema = new Schema({
   startTime:      {type: Date,                                        required: true},
   endTime:        {type: Date,                                        required: true},
   status:         {type: String, enum: ['confirmed', 'pending', 'cancelled'],default: 'pending'},
-  pictures:       {type: String},
+  pictures:       [{type: String}],
   reviews:        [{type: Schema.Types.ObjectId, ref: 'Review'}],
   mainPhoto:      {type: String, default: '/assets/images/event_placeholder.png'}
 });
