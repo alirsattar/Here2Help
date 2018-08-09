@@ -40,10 +40,13 @@ router.get('/', (req, res, next) => {
 
 // POST ROUTE FOR UPDATING ONE ORGANIZATION
 router.post('/:id/edit', (req, res, next) => {
+  console.log(req.body);
   if(!req.body.name        || req.body.name        === '') {res.status(400).json({message: 'Organization name is required'         }); return;}
   if(!req.body.address     || req.body.address     === '') {res.status(400).json({message: 'Organization address is required'      }); return;}
   if(!req.body.email       || req.body.email       === '') {res.status(400).json({message: 'Organization email is required'        }); return;}
   if(!req.body.phoneNumber || req.body.phoneNumber === '') {res.status(400).json({message: 'Organization phone number is required' }); return;}
+  if(!req.body.description || req.body.description === '') {res.status(400).json({message: 'Organization description is required'  }); return;}
+
 
   Organization.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, org) => {
     if(err)         {res.status(400).json(err)}
@@ -68,6 +71,23 @@ router.post('/:id/addPhoto/', (req, res, next) => {
   });
 });
 
+// POST ROUTE FOR REMOVING PHOTOS
+router.post('/:id/deletePhoto/', (req, res, next) => {
+  Organization.findByIdAndUpdate(req.params.id, {$pull: {orgPhotos: req.body.photo}}, {new:true}, (err, conf) => {
+    if(err)         {res.status(400).json(err)}
+    else            {res.status(200).json(conf)}
+  });
+});
+
+// // POST ROUTE FOR REMOVING Events
+// router.post('/:id/deletePhoto/', (req, res, next) => {
+//   console.log(req.body);
+//   Organization.findByIdAndUpdate(req.params.id, {$pull: {orgPhotos: req.body.photo}}, {new:true}, (err, conf) => {
+//     if(err)         {res.status(400).json(err)}
+//     else            {res.status(200).json(conf)}
+//   });
+// });
+
 // POST ROUTE FOR ADDING STAFF
 router.post('/:id/addStaff', (req, res, next) => {
   let staff = req.body.staff;
@@ -76,6 +96,23 @@ router.post('/:id/addStaff', (req, res, next) => {
     else {
       staff = staff.map(u => {return u.user});
       User.updateMany({_id: {$in: staff}}, {$push: {organizations: org._id}}, (err, conf) => {
+        if(err)         {res.status(400).json(err)}
+        else if (!conf) {res.status(400).json({message: 'Something went wrong'})}
+        else            {res.status(200).json(conf)}
+      })
+    }
+  })
+});
+
+// POST ROUTE FOR REMOVING STAFF
+router.post('/:id/deleteStaff', (req, res, next) => {
+  let member = req.body;
+  console.log(member);
+  Organization.findByIdAndUpdate(req.params.id, {$pull: {staff: {user: member.user._id}}}, {new: true}, (err, org) => {
+    if(err)             {res.status(400).json(err)}
+    else {
+      console.log(org);
+      User.findByIdAndUpdate(member.user._id, {$pull: {organizations: org._id}}, (err, conf) => {
         if(err)         {res.status(400).json(err)}
         else if (!conf) {res.status(400).json({message: 'Something went wrong'})}
         else            {res.status(200).json(conf)}
