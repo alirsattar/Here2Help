@@ -14,13 +14,13 @@ mongoose.connect(process.env.MONGODB_URI);
 
 const usersArray = [
   {
-    firstName: 'Giannini',
-    lastName: 'Charles',
-    zipCode: '33014',
-    email: 'giannini@ironhack.com',
-    password: 'gianninicharles',
-    profilePicture: 'https://media.licdn.com/dms/image/C5603AQEgBk_NtZI-cA/profile-displayphoto-shrink_800_800/0?e=1539216000&v=beta&t=owhW0atmdkgkX6zI4Z6UqrVu-6GOTNZGEgkv-FgmevY',
-    phoneNumber: '1234567890',
+    firstName:          'Giannini',
+    lastName:           'Charles',
+    zipCode:            '33014',
+    email:              'giannini@ironhack.com',
+    password:           'gianninicharles',
+    profilePicture:     'https://media.licdn.com/dms/image/C5603AQEgBk_NtZI-cA/profile-displayphoto-shrink_800_800/0?e=1539216000&v=beta&t=owhW0atmdkgkX6zI4Z6UqrVu-6GOTNZGEgkv-FgmevY',
+    phoneNumber:        '1234567890',
     bio:                'Passionate Software Development student coding his way through this world’s rapid advance of technology. Lifelong learner. Skilled in operating Windows PC’s using the GUI as well as learning Web Development at Ironhack.'
   },
   {
